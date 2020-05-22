@@ -107,6 +107,7 @@ func getFile(body []byte, st *State, isDir, isSet bool) *File {
 
     for i, p := range paths {
         files := st.Files[curDir]
+        
 
         if p == ".." {
             curDir = path.Dir(curDir)
@@ -123,6 +124,10 @@ func getFile(body []byte, st *State, isDir, isSet bool) *File {
                 }
             }
             continue
+        } else if len(p) == 0 && i == len(paths)-1 && isDir {
+            st.CurDir = curDir 
+            res = &dummy
+            break
         }
 
         isChanged = false
