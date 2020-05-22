@@ -27,3 +27,4 @@ Default port is 5000. All files and directories will be placed in root of FTP se
 
 * Implement active mode aka PORT command.
 * Implement STOR command.
+* Implement support files with whitespaces in the name.
