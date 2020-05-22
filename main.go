@@ -455,13 +455,14 @@ func readPath(files map[string][]File, cur, filepath string) error {
         return err
     }
 
+    fname := strings.ReplaceAll(inf.Name(), " ", "_")
     if inf.IsDir() {
-        files[cur] = append(files[cur], File {inf.Name(), filepath, true, inf.Size()})
+        files[cur] = append(files[cur], File {fname, filepath, true, inf.Size()})
         fs, err := ioutil.ReadDir(filepath)
         if err != nil {
             return err
         }
-        nextDir := path.Join(cur, inf.Name())
+        nextDir := path.Join(cur, fname)
         for _, f := range fs {
             err = readPath(files, nextDir, path.Join(filepath, f.Name()))
             if err != nil {
@@ -469,7 +470,7 @@ func readPath(files map[string][]File, cur, filepath string) error {
             }
         }
     } else {
-        files[cur] = append(files[cur], File {inf.Name(), filepath, false, inf.Size()})
+        files[cur] = append(files[cur], File {fname, filepath, false, inf.Size()})
     }
 
     return nil
