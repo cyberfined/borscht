@@ -213,9 +213,7 @@ func passHandler(body []byte, st *State) error {
     var err error
     if !st.IsUser {
         _, err = st.CmdConn.Write([]byte("503 Login with USER first.\n"))
-        if err != nil {
-            return err
-        }
+        return err
     }
 
     st.IsPass = true
